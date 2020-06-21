@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>My first three.js app</title>
+  <style>
+    body {
+      margin: 0;
+    }
+
+    canvas {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <script src="three.js"></script>
+  <script>
+    //SCENE, CAMERA, RENDERER
+
+    //1. SCENE
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(
+      40,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+    //75: field of view. 씬의 범위. degree 단위. 클수록 멀어짐
+    //winwidth/winheight : aspect ratio
+    //0.1 & 1000 : near & far 범위 (해당 범위만 렌더링 함)
+
+    //2. RENDERER
+    var renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight); //렌더링 사이즈(예시는 full browser w&h)
+    document.body.appendChild(renderer.domElement);
+
+    var geometry = new THREE.BoxGeometry();
+    //Material(has several options)
+    var material = new THREE.MeshBasicMaterial({
+      color: 0x00ff00,
+    });
+    var cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+
+    camera.position.z = 5; //moved the camera slightly to see the scene(from 0,0,0 to 0,0,5)
+    //rendering the scene(통상 60회/1초) Animation Loop!
+    function animate() {
+      requestAnimationFrame(animate);
+      cube.rotation.x += 0.01; //cube를 x축 기준으로 돌리기.(내 쪽으로)
+      cube.rotation.y += 0.01; //cube를 y축 기준으로 돌리기.(좌우 방향)
+      renderer.render(scene, camera); //렌더링하기
+    }
+    animate();
+  </script>
+</body>
+
+</html>
