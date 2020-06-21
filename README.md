@@ -1,2 +1,2 @@
 # threejs
-three.js projects from the scratch
+collection of three.js projects - from the scratch
